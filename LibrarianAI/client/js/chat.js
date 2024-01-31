@@ -179,16 +179,7 @@ const ask_gpt = async (message) => {
       }
 
       text += chunk;
-
-      // const objects         = chunk.match(/({.+?})/g);
-
-      // try { if (JSON.parse(objects[0]).success === false) throw new Error(JSON.parse(objects[0]).error) } catch (e) {}
-
-      // objects.forEach((object) => {
-      //     console.log(object)
-      //     try { text += h2a(JSON.parse(object).content) } catch(t) { console.log(t); throw new Error(t)}
-      // });
-
+      
       document.getElementById(`gpt_${window.token}`).innerHTML =
         markdown.render(text);
       document.querySelectorAll(`code`).forEach((el) => {
@@ -199,7 +190,6 @@ const ask_gpt = async (message) => {
       message_box.scrollTo({ top: message_box.scrollHeight, behavior: "auto" });
     }
 
-    // if text contains :
     if (
       text.includes(
         `instead. Maintaining this website and API costs a lot of money`
@@ -399,9 +389,6 @@ const add_message = async (conversation_id, role, content) => {
 };
 
 const load_conversations = async (limit, offset, loader) => {
-  //console.log(loader);
-  //if (loader === undefined) box_conversations.appendChild(spinner);
-
   let conversations = [];
   for (let i = 0; i < localStorage.length; i++) {
     if (localStorage.key(i).startsWith("conversation:")) {
@@ -409,8 +396,7 @@ const load_conversations = async (limit, offset, loader) => {
       conversations.push(JSON.parse(conversation));
     }
   }
-
-  //if (loader === undefined) spinner.parentNode.removeChild(spinner)
+  
   await clear_conversations();
 
   for (conversation of conversations) {
